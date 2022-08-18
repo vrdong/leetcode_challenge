@@ -1,6 +1,4 @@
 class Solution:
-    
-
     def getPalindrome(self, s, l, r):
         '''
         expand left, right to get longest palindrome from a center
@@ -14,6 +12,10 @@ class Solution:
         return s[l+1:r]
 
     def longestPalindrome(self, s: str) -> str:
+        '''
+        Time complexity O(n^2)
+        Space complexity 
+        '''
         res = ""
 
         for i in range(len(s)):
