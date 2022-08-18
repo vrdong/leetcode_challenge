@@ -25,8 +25,9 @@ nums2.length == n
 from typing import List
 import math
 
+
 class Solution:
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+    def findMedianSortedArraysMySelf(self, nums1: List[int], nums2: List[int]) -> float:
         '''
         Time complexity: O(n)
         Space complexity: O(1)
@@ -39,12 +40,12 @@ class Solution:
         while cur_idx <= mid_idx:
             num1_val = nums1[i] if i < m else math.inf
             num2_val = nums2[j] if j < n else math.inf
-            
+
             if num1_val < num2_val:
-                i+=1
+                i += 1
             else:
-                j+=1
-            
+                j += 1
+
             if cur_idx == mid_idx:
                 ans = min(num1_val, num2_val)
             cur_idx += 1
@@ -52,14 +53,63 @@ class Solution:
         if (m + n) % 2 == 0:
             num1_val = nums1[i] if i < m else math.inf
             num2_val = nums2[j] if j < n else math.inf
-            
-            ans += min(num1_val, num2_val) 
+
+            ans += min(num1_val, num2_val)
             return ans / 2
         else:
             return ans
-        
-        
+
     # Optimal solution Olog(m+n)
     # TODO
 
-print(Solution().findMedianSortedArrays(nums1 = [1,2], nums2 = [3,4]))
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        m = len(nums1)
+        n = len(nums2)
+        l = m+n
+
+        if l % 2 == 1:
+            return self.kthSmallest(nums1, 0, m - 1, nums2, 0, n - 1, l // 2 + 1)
+        else:
+            mid_val_1 = self.kthSmallest(
+                nums1, 0, m-1, nums2, 0, n - 1, l // 2 + 1)
+            mid_val_2 = self.kthSmallest(
+                nums1, 0, m-1, nums2, 0, n - 1, l // 2)
+            print(mid_val_1, mid_val_2)
+            return (mid_val_1 + mid_val_2) / 2
+
+    def kthSmallest(self, nums1, start1, end1, nums2, start2, end2, k):
+        # print(nums1[start1: end1+1], nums2[start2:end2+1], k)
+        m = end1 - start1 + 1
+        n = end2 - start2 + 1
+        l = m + n
+
+        if l < k:
+            return 0
+
+        if m == 0:
+            return nums2[start2 + k - 1]
+        if n == 0:
+            return nums1[start1 + k - 1]
+
+        mid1_idx = start1 + m // 2
+        mid2_idx = start2 + n // 2
+
+        mid1_val = nums1[mid1_idx]
+        mid2_val = nums2[mid2_idx]
+
+        # when k is bigger than the sum of a and b's median indices
+        if l // 2 < k:
+            # if a's median is smaller than b's, a's first half doesn't include k
+            if mid1_val < mid2_val:
+                return self.kthSmallest(nums1, mid1_idx + 1, end1, nums2, start2, end2, k - (m // 2 + 1))
+            else:
+                return self.kthSmallest(nums1, start1, end1, nums2, mid2_idx + 1, end2, k - (n // 2 + 1))
+        else:
+            if mid1_val < mid2_val:
+                return self.kthSmallest(nums1, start1, end1, nums2, start2, mid2_idx - 1, k)
+            else:
+                return self.kthSmallest(nums1, start1, mid1_idx - 1, nums2, start2, end2, k)
+
+
+print(Solution().findMedianSortedArrays(
+    nums1=[1,2], nums2=[3]))
