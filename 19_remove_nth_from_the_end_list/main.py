@@ -55,4 +55,9 @@ class Solution:
          
          
          
+    # Better solution
+    # Using 2 pointer 
+    # A fast pointer go a head n node slow pointer
+    # If fast pointer reach to the end of linked list => slow point reach to the n-th from the end of list
+    # TODO implement better solution
     
