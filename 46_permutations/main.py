@@ -24,7 +24,10 @@ All the integers of nums are unique.
 
 from typing import List
 class Solution:
-
+    '''
+    Solution:
+    O(N! * N)
+    '''
     def findPermute(self, nums: List[int], currentResult: List[int]):
         if len(currentResult) == len(nums):
             self.result.append(currentResult[:])
