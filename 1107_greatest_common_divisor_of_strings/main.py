@@ -48,3 +48,4 @@ class Solution:
         
     
 print(Solution().gcdOfStrings('ABCABC', 'ABC'))
+
