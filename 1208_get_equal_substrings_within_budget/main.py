@@ -1,6 +1,7 @@
 """ 
 Desceiption: Find the longest substring of s that can be changed to t with at most maxCost cost
 Ref: https://leetcode.com/problems/get-equal-substrings-within-budget/discuss/392918/JavaC%2B%2BPython-Sliding-Window
+Tags: ["Sliding Window", "String", "Two Pointers", "Array"]
 """
 class Solution:
     '''
